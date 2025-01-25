@@ -10,3 +10,20 @@ html, body {
   bottom: 0;
   width: 100%;
 }
+
+.row {
+
+  display: flex;
+}
+
+.side_column {
+  width: 20%;
+  height: fill;
+  float: left;
+}
+
+.main_column {
+  width: 60%;
+  height: fill;
+  float: left;
+}

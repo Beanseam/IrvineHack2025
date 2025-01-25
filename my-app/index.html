@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/css/ol.css" type="text/css">
     <style>
       .map {
@@ -12,20 +13,16 @@
     <title>Random Points From Code</title>
   </head>
   <body>
-    <h2>300 Random Points From Code</h2>
+    <h2>Generate Point at Coordinates</h2>
     <div id="map" class="map"></div>
     <script type="text/javascript">
       const features = [];
       features.push(new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([33.64813, -117.852183]))
-      }));
-      for (i = 0; i < 300; i++) {
-        features.push(new ol.Feature({
           geometry: new ol.geom.Point(ol.proj.fromLonLat([
-            -getRandomNumber(50, 50), getRandomNumber(10, 50)
+            -117.85, 33.65
           ]))
         }));
-      }
+      
       // create the source and layer for random features
       const vectorSource = new ol.source.Vector({
         features
@@ -54,5 +51,10 @@
         })
       });
     </script>
+    <div class="row">
+      <div class="side_column">A</div>
+      <div class="main_column">B</div>
+      <div class="side_column">C</div>
+    </div>
   </body>
 </html>
