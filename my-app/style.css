@@ -5,25 +5,31 @@ html, body {
   height: 100%;
 }
 #map {
-  position: absolute;
+  position: static;
   top: 0;
   bottom: 0;
   width: 100%;
 }
 
 .row {
-
   display: flex;
 }
 
 .side_column {
   width: 20%;
   height: fill;
-  float: left;
+  text-align: center;
 }
 
 .main_column {
   width: 60%;
   height: fill;
-  float: left;
+  text-align: center;
+  display: flex;
+}
+
+.inner_column {
+  width: 50%;
+  height: fill;
+  text-align: center;
 }
