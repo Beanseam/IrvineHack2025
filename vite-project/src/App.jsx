@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
+import { FaAnglesDown } from "react-icons/fa6";
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -7,6 +8,7 @@ import './App.css'
 
 
 const INITIAL_ZOOM = 17
+var guesses = 0;
 
 function SideBar(propData)
 {
@@ -39,7 +41,7 @@ function SideBar(propData)
         <div class="large-margin">
           <div class="centered-row">
             <input type="text" id="user-guess" placeholder="Enter Your Guess!"></input>
-            <i class='fas fa-angle-double-down' ></i>
+            <FaAnglesDown style={{fontSize: '24px'}}/>
           </div>
           <div class="centered-row">
             <input type="submit" value="Guess"></input>
@@ -139,11 +141,12 @@ function App() {
 
 function compareGuess(){
   var userGuess = document.getElementById("user-guess").innerHTML;
+  guesses++;
   var realValue = 100000;
-  if(userGuess < (realValue - 5000)){
+  if(userGuess < (realValue - 10000)){
 
   }
-  else if(userGuess > (realValue + 5000)){
+  else if(userGuess > (realValue + 10000)){
 
   }
   else{
