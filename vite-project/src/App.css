@@ -12,7 +12,7 @@
   border-radius:25px; /*round corners*/
   position:relative;
   left:30px;
-  top:55px;
+  top:75px;
   /* temporarily set the background color so we can tell where the map container is positioned */
   background-color: lightgray;
   box-shadow: 0px 0px 5px 3px lightgray;
@@ -23,7 +23,7 @@
 .sidebar-pos
 {
   position: absolute;
-  top: 40px;
+  top: 60px;
   left: 75%;
 }
 
@@ -110,7 +110,7 @@
 }
 
 .large-margin{
-  margin-top: 60px;
+  margin-top: 20px;
 }
 
 .centered-row{
@@ -131,15 +131,16 @@ input[type=text], select {
   border-radius: 8px;
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
+  line-height: 28px;
 }
 
 .derpy-button {
-  width: 45%;
-  background-color: rgb(166, 155, 75);
+  width: 65%;
+  background-color: rgb(130, 207, 239);
   color: black;
   padding: 14px 20px;
   margin: 8px 0;
-  border: none;
+  border: '1px solid black';
   border-radius: 4px;
   cursor: pointer;
   font-size: 15px;
