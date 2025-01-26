@@ -92,8 +92,6 @@ function App() {
   const [initialCenter, setInitialCenter] = useState([0, 0]); // Default coordinates
   const [propertyData, setPropertyData] = useState(null); // State for property data
 
-  var numGuesses = 0;
-
   useEffect(() => {
     let didCancel = false;
 
@@ -167,6 +165,7 @@ function App() {
     }
   }, [isDataLoaded, initialCenter]);
 
+  const [numGuesses, setNumGuesses] = useState(1);
   const compareGuess = (propData) => {
     const map = mapRef.current;
     const userGuess = document.getElementById("user-guess").value; // Get user input
@@ -174,13 +173,13 @@ function App() {
 
     if (userGuess < realValue - 10000) {
       setIconState("FaAnglesUp"); // Set state to Down Icon
-      numGuesses++;
+      setNumGuesses(prev => prev + 1);
     } else if (userGuess > realValue + 10000) {
       setIconState("FaAnglesDown"); // Set state to Up Icon
-      numGuesses++;
+      setNumGuesses(prev => prev + 1);
     } else {
       setIconState("FaMinus"); // Set state to Accessible Icon
-      numGuesses++;
+      setNumGuesses(prev => prev + 1);
     }
 
     switch (numGuesses) {
@@ -188,7 +187,37 @@ function App() {
         {
           map.setConfigProperty('basemap', 'showPlaceLabels', true);
           removeBlur("city");
-          console.log("Added Labels!")
+          console.log("1 Guess")
+          break;
+        }
+        case 2:
+        {
+          map.setConfigProperty('basemap', 'showPlaceLabels', true);
+          removeBlur("lot-size");
+          console.log("2 Guess")
+          break;
+        }
+        case 3:
+        {
+          map.setConfigProperty('basemap', 'showPlaceLabels', true);
+          removeBlur("bedrooms");
+          removeBlur("bathrooms");
+          console.log("3 Guess")
+          break;
+        }
+        case 4:
+        {
+          map.setConfigProperty('basemap', 'showPlaceLabels', true);
+          removeBlur("year-built");
+          console.log("4 Guess")
+          break;
+        }
+        case 5:
+        {
+          map.setConfigProperty('basemap', 'showPlaceLabels', true);
+          removeBlur("stories");
+          console.log("5 Guess")
+          break;
         }
       default:
         {
