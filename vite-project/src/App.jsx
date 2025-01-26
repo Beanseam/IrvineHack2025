@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
+import { FaAnglesDown } from "react-icons/fa6";
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -12,9 +13,6 @@ function SideBar()
 {
    return (
     <section>
-      <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-      </head>
       <p class = "sidebar sidebarPos" style={{border: '1px solid black'}}>
         <div class="main-body">
           <div class="side-column">
@@ -37,7 +35,7 @@ function SideBar()
         <div class="large-margin">
           <div class="centered-row">
             <input type="text" id="user-guess" placeholder="Enter Your Guess!"></input>
-            <i class='fas fa-angle-double-down' ></i>
+            <FaAnglesDown style={{fontSize: '24px'}}/>
           </div>
           <div class="centered-row">
             <input type="submit" value="Guess"></input>
