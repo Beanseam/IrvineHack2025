@@ -32,8 +32,6 @@ function App() {
 
   var INITIAL_CENTER = [0, 0]
 
-  
-    
   useEffect(() => {
     let didCancel = false;
 
@@ -62,6 +60,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    
     if (isDataLoaded) {
       // Initialize the map only after data is loaded
       mapboxgl.accessToken = apiKey;
@@ -70,6 +69,20 @@ function App() {
         center: initialCenter,
         zoom: INITIAL_ZOOM,
       });
+      var map = mapRef.current
+
+      // Add a marker at the specified latitude and longitude
+      new mapboxgl.Marker()
+        .setLngLat(initialCenter)
+        .addTo(map); //mapRef.current is the current mapboxgl Map
+
+        map.on('style.load', () => {
+          map.setConfigProperty('basemap', 'showPointOfInterestLabels', false);
+          map.setConfigProperty('basemap', 'showPedestrianRoads', false);
+          map.setConfigProperty('basemap', 'showPlaceLabels', false);
+          map.setConfigProperty('basemap', 'showRoadLabels', false);
+          map.setConfigProperty('basemap', 'showTransitLabels', false);
+        });
     }
   }, [isDataLoaded, initialCenter]);
 
