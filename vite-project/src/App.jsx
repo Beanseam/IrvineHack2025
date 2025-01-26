@@ -29,7 +29,8 @@ function SideBar({ propData, compareGuess, iconState }) {
 
   return (
     <section>
-      <div className="sidebar sidebarPos" style={{ border: '1px solid black' }}>
+      <p class = "sidebar sidebar-pos" style={{border: '1px solid black'}}></p>
+      <div className="sidebar sidebar-pos" style={{ border: '1px solid black' }}>
         <div className="main-body">
           <div className="side-column">
             <div className="row-left-top">City:</div>
@@ -163,6 +164,7 @@ function App() {
         map.setConfigProperty('basemap', 'showPlaceLabels', false);
         map.setConfigProperty('basemap', 'showRoadLabels', false);
         map.setConfigProperty('basemap', 'showTransitLabels', false);
+        updateBounds(map, initialCenter, .01);
       });
     }
   }, [isDataLoaded, initialCenter]);
@@ -180,6 +182,7 @@ function App() {
       numGuesses++;
     } else {
       setIconState("FaMinus"); // Set state to Accessible Icon
+      alert("You win!");
       numGuesses++;
     }
 
@@ -187,12 +190,63 @@ function App() {
       case 1:
         {
           map.setConfigProperty('basemap', 'showPlaceLabels', true);
+          updateBounds(map, initialCenter, .1);
           removeBlur("city");
-          console.log("Added Labels!")
+          alert("guess 1");
+          
+          break;
+        }
+      case 2:
+        {
+          map.setConfigProperty('basemap', 'showRoadLabels', true);
+          removeBlur("lot-size");
+          updateBounds(map, initialCenter, .3);
+          alert("guess 2");
+          break;
+
+        }
+      case 3:
+        {
+          map.setConfigProperty('basemap', 'showPedestrianRoads', true);
+          removeBlur("bathrooms");
+          removeBlur("bedrooms");
+          updateBounds(map, initialCenter, .5);
+          alert("guess3");
+          break;
+        }
+      case 4:
+        {
+          map.setConfigProperty('basemap', 'showTransitLabels', true);
+          removeBlur("year-built");
+          updateBounds(map, initialCenter, 1);
+          alert("guess4");
+          break;
+        }
+
+      case 5:
+        {
+          map.setConfigProperty('basemap', 'showPointOfInterestLabels', true);
+          removeBlur("stories");
+          
+          alert("guess5");
+          break;
+        }
+      case 6:
+        {
+          alert("guess6");
+          // free guess 1
+          break;
+        }
+      case 7:
+        {
+          alert("guess7");
+          break;
+          // free guess 2
         }
       default:
         {
           console.log("Reset Game")
+          alert("game over");
         }
     }
 
@@ -233,9 +287,21 @@ function App() {
   );
 }
 
-function removeBlur(elementId) {
+function updateBounds(map, initialCenter, offset)//numGuesses)
+{
+  //const offset = numGuesses * .15;
+  const bounds = [[initialCenter[0] - offset, initialCenter[1] - offset], [initialCenter[0] + offset, initialCenter[1] + offset]];
+  map.setMaxBounds(bounds);
+}
+
+
+
+function removeBlur(elementId)
+{
   var element = document.getElementById(elementId);
   element.removeAttribute("style");
 }
+
+
 
 export default App;
