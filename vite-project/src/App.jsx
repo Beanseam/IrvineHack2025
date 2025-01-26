@@ -96,6 +96,7 @@ function App() {
   const [initialCenter, setInitialCenter] = useState([0, 0]); // Default coordinates
   const [propertyData, setPropertyData] = useState(null); // State for property data
   const [numGuesses, setNumGuesses] = useState(1);
+  const [value, setVal] = useState(0);
 
   const fetchData = async () => {
     try {
@@ -187,6 +188,7 @@ function App() {
     else {
       setIconState("FaMinus"); // Set state to Accessible Icon
       yesWin()
+      setVal(realValue)
       restartGame()
     }
 
@@ -305,7 +307,7 @@ function App() {
             <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
               <p>Congratulations! </p>
               <p>You Win! Seems like you really know SoCal well!</p>
-              <p>{"The Total Assessed Property Value was: $" + propertyData.TotalAssessedValue}</p>
+              <p>{"The Total Assessed Property Value was: $" + value}</p>
             </pre>
           }
           onClose={noWin}
