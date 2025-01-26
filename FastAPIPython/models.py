@@ -18,6 +18,8 @@ class Property(BaseModel):
     NumberOfBaths: int = Field(...)
     NumberOfStories: int = Field(...)
     PoolArea: int = Field(...)
+    Latitude: float = Field(...)
+    Longitude: float = Field(...)
 
     class Config:
         allow_population_by_field_name = True
@@ -38,6 +40,8 @@ class Property(BaseModel):
                 "NumberOfBaths": 1,
                 "NumberOfStories": 1,
                 "PoolArea": 0,
+                "Latitude": 33.761373,
+                "Longitude": -117.894009,
             }
         }
 

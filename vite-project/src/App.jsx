@@ -1,9 +1,12 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import './App.css'
+
+
+const INITIAL_ZOOM = 17
 
 function SideBar()
 {
@@ -19,23 +22,56 @@ function SideBar()
 
 
 function App() {
-  console.log('Hello');
+  // Map related vars
   const apiKey = import.meta.env.VITE_MAP_KEY;
-  console.log(apiKey);
 
-  const mapRef = useRef()
-  const mapContainerRef = useRef()
+  const mapContainerRef = useRef(null);
+  const mapRef = useRef(null);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [initialCenter, setInitialCenter] = useState([0, 0]); // Default coordinates
 
+  var INITIAL_CENTER = [0, 0]
+
+  
+    
   useEffect(() => {
-    mapboxgl.accessToken = apiKey
-    mapRef.current = new mapboxgl.Map({
-      container: mapContainerRef.current,
-    });
+    let didCancel = false;
+
+    async function fetchData() {
+      try {
+        const res = await fetch("http://localhost:8000/generate");
+        const data = await res.json();
+        if (!didCancel) {
+          console.log(data.MAK, data.Latitude, data.Longitude);
+          setInitialCenter([data.Longitude, data.Latitude]);
+          setIsDataLoaded(true); // Mark data as loaded
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData();
 
     return () => {
-      mapRef.current.remove()
+      if (mapRef.current) {
+        mapRef.current.remove();
+      }
+      didCancel = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isDataLoaded) {
+      // Initialize the map only after data is loaded
+      mapboxgl.accessToken = apiKey;
+      mapRef.current = new mapboxgl.Map({
+        container: mapContainerRef.current,
+        center: initialCenter,
+        zoom: INITIAL_ZOOM,
+      });
     }
-  }, [])
+  }, [isDataLoaded, initialCenter]);
 
   return (
     <>
