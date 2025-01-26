@@ -196,8 +196,7 @@ function App() {
           map.setConfigProperty('basemap', 'showTransitLabels', true);
           
           updateBounds(map, initialCenter, .1);
-          removeBlur("city");
-          
+          removeBlur("city");          
           break;
         }
       case 2:
@@ -234,6 +233,7 @@ function App() {
           });
           removeBlur("stories");
           
+          alert("guess5");
           break;
         }
       case 6:
@@ -242,12 +242,11 @@ function App() {
           break;
         }
       case 7:
-      {
-        // free guess 2
-        document.getElementById("input-button").textContent="Play Again!";
-        break;
-        
-      }
+        {
+          alert("guess7");
+          break;
+          // free guess 2
+        }
       default:
         {
           noWin()
