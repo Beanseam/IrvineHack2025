@@ -1,71 +1,78 @@
-import { useRef, useEffect, useState } from 'react'
-import mapboxgl from 'mapbox-gl'
-import { FaAnglesDown } from "react-icons/fa6";
+import { useRef, useEffect, useState } from 'react';
+import mapboxgl from 'mapbox-gl';
+import { FaAnglesDown, FaAnglesUp, FaMinus } from "react-icons/fa6";
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+import './App.css';
 
-import './App.css'
-
-
-const INITIAL_ZOOM = 17
+const INITIAL_ZOOM = 17;
 var guesses = 0;
 
-function SideBar(propData)
-{
-  console.log(propData)
-  console.log(propData.propData?.City)
-   return (
+function SwitchingIcons({ state }) {
+  return (
+    <div>
+      {state === 'FaMinus' && <FaMinus color='darkBlue' size={32}/>}
+      {state === 'FaAnglesDown' && <FaAnglesDown color='darkBlue' size={32}/>}
+      {state === 'FaAnglesUp' && <FaAnglesUp color='darkBlue' size={32}/>}
+    </div>
+  );
+}
+
+function SideBar({ propData, compareGuess, iconState }) {
+  const handleClick = () => {
+    compareGuess(propData);
+  };
+
+  console.log(propData);
+
+  return (
     <section>
-      <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-      </head>
-      <div class = "sidebar sidebarPos" style={{border: '1px solid black'}}>
-        <div class="main-body">
-          <div class="side-column">
-            <div class="row-left-top">City:</div>
-            <div class="row-left">Lot Size:</div>
-            <div class="row-left">Bedrooms:</div>
-            <div class="row-left">Bathrooms:</div>
-            <div class="row-left">Year Built:</div>
-            <div class="row-left">Floors:</div>
+      <div className="sidebar sidebarPos" style={{ border: '1px solid black' }}>
+        <div className="main-body">
+          <div className="side-column">
+            <div className="row-left-top">City:</div>
+            <div className="row-left">Lot Size:</div>
+            <div className="row-left">Bedrooms:</div>
+            <div className="row-left">Bathrooms:</div>
+            <div className="row-left">Year Built:</div>
+            <div className="row-left">Floors:</div>
           </div>
-          <div class="side-column">
-            <div class="row-right-top">{propData.propData?.City || "N/A"}</div>
-            <div class="row-right">{propData.propData?.LotSizeOrArea || "N/A"}</div>
-            <div class="row-right">{propData.propData?.NumberOfBedrooms || "N/A"}</div>
-            <div class="row-right">{propData.propData?.NumberOfBaths || "N/A"}</div>
-            <div class="row-right">{propData.propData?.YearBuilt || "N/A"}</div>
-            <div class="row-right">{propData.propData?.NumberOfStories || "N/A"}</div>
+          <div className="side-column">
+            <div className="row-right-top">{propData?.City || "N/A"}</div>
+            <div className="row-right">{propData?.LotSizeOrArea || "N/A"}</div>
+            <div className="row-right">{propData?.NumberOfBedrooms || "N/A"}</div>
+            <div className="row-right">{propData?.NumberOfBaths || "N/A"}</div>
+            <div className="row-right">{propData?.YearBuilt || "N/A"}</div>
+            <div className="row-right">{propData?.NumberOfStories || "N/A"}</div>
           </div>
         </div>
-        <div class="large-margin">
-          <div class="centered-row">
-            <input type="text" id="user-guess" placeholder="Enter Your Guess!"></input>
-            <FaAnglesDown style={{fontSize: '24px'}}/>
+        <div className="large-margin">
+          <div className="centered-row">
+            <input type="text" id="user-guess" placeholder="Enter Your Guess!" />
+            <div class="added-padding">
+            <SwitchingIcons state={iconState}/> {/* Pass the icon state */}
+            </div>
           </div>
-          <div class="centered-row">
-            <input type="submit" value="Guess"></input>
+          <div className="centered-row">
+            <button className="derpy-button" id="input-button" onClick={handleClick}>
+              Guess
+            </button>
           </div>
         </div>
       </div>
-      
-
     </section>
-   );
+  );
 }
-
 
 function App() {
   // Map related vars
   const apiKey = import.meta.env.VITE_MAP_KEY;
-
+  const [iconState, setIconState] = useState("FaMinus"); // Track icon state
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [initialCenter, setInitialCenter] = useState([0, 0]); // Default coordinates
   const [propertyData, setPropertyData] = useState(null); // State for property data
-
-  var INITIAL_CENTER = [0, 0]
 
   useEffect(() => {
     let didCancel = false;
@@ -77,7 +84,6 @@ function App() {
         if (!didCancel) {
           console.log(data);
           setInitialCenter([data.Longitude, data.Latitude]);
-          // Assuming the API response includes property data
           setPropertyData({
             City: data.City,
             LotSizeOrArea: data.LotSizeOrArea,
@@ -85,12 +91,23 @@ function App() {
             NumberOfBaths: data.NumberOfBaths,
             YearBuilt: data.YearBuilt,
             NumberOfStories: data.NumberOfStories,
+            TotalAssessedValue: data.TotalAssessedValue
           });
           setIsDataLoaded(true); // Mark data as loaded
-           
         }
       } catch (error) {
         console.error("Error fetching data:", error);
+        setInitialCenter([-117.894009, 33.761373]);
+        setPropertyData({
+          City: "Santa Ana",
+          LotSizeOrArea: 6050,
+          NumberOfBedrooms: 2,
+          NumberOfBaths: 1,
+          YearBuilt: 1951,
+          NumberOfStories: 1,
+          TotalAssessedValue: 280428
+        });
+        setIsDataLoaded(true); // Mark data as loaded
       }
     }
 
@@ -105,7 +122,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    
     if (isDataLoaded) {
       // Initialize the map only after data is loaded
       mapboxgl.accessToken = apiKey;
@@ -114,44 +130,44 @@ function App() {
         center: initialCenter,
         zoom: INITIAL_ZOOM,
       });
-      var map = mapRef.current
+      const map = mapRef.current;
 
       // Add a marker at the specified latitude and longitude
       new mapboxgl.Marker()
         .setLngLat(initialCenter)
-        .addTo(map); //mapRef.current is the current mapboxgl Map
+        .addTo(map);
 
-        map.on('style.load', () => {
-          map.setConfigProperty('basemap', 'showPointOfInterestLabels', false);
-          map.setConfigProperty('basemap', 'showPedestrianRoads', false);
-          map.setConfigProperty('basemap', 'showPlaceLabels', false);
-          map.setConfigProperty('basemap', 'showRoadLabels', false);
-          map.setConfigProperty('basemap', 'showTransitLabels', false);
-        });
+      map.on('style.load', () => {
+        map.setConfigProperty('basemap', 'showPointOfInterestLabels', false);
+        map.setConfigProperty('basemap', 'showPedestrianRoads', false);
+        map.setConfigProperty('basemap', 'showPlaceLabels', false);
+        map.setConfigProperty('basemap', 'showRoadLabels', false);
+        map.setConfigProperty('basemap', 'showTransitLabels', false);
+      });
     }
   }, [isDataLoaded, initialCenter]);
 
+  const compareGuess = (propData) => {
+    const userGuess = document.getElementById("user-guess").value; // Get user input
+    const realValue = propData.TotalAssessedValue;
+
+    if (userGuess < realValue - 10000) {
+      setIconState("FaAnglesUp"); // Set state to Down Icon
+    } else if (userGuess > realValue + 10000) {
+      setIconState("FaAnglesDown"); // Set state to Up Icon
+    } else {
+      setIconState("FaMinus"); // Set state to Accessible Icon
+    }
+  };
+
   return (
     <>
-      <div id='map-container' ref={mapContainerRef} style={{border: '1px solid black'}}/>
-      <SideBar propData={propertyData} />
+      <div id='map-container' ref={mapContainerRef} style={{ border: '1px solid black' }} />
+      {propertyData && (
+        <SideBar propData={propertyData} compareGuess={compareGuess} iconState={iconState} />
+      )}
     </>
-  )
+  );
 }
 
-function compareGuess(){
-  var userGuess = document.getElementById("user-guess").innerHTML;
-  guesses++;
-  var realValue = 100000;
-  if(userGuess < (realValue - 10000)){
-
-  }
-  else if(userGuess > (realValue + 10000)){
-
-  }
-  else{
-
-  }
-}
-
-export default App
+export default App;

@@ -50,6 +50,10 @@
   font-family: 'Inter', sans-serif;
 }
 
+.added-padding{
+  padding-left: 10px;
+}
+
 .main-body{
   width: 100%;
   height: fit-content;
@@ -72,6 +76,7 @@
   font-weight: bold;
   font-size: 25px;
   display: "flex";
+  font-family: 'Inter', sans-serif;
 }
 
 .row-left-top{
@@ -81,6 +86,7 @@
   font-weight: bold;
   font-size: 25px;
   display: "flex";
+  font-family: 'Inter', sans-serif;
 }
 
 .row-right{
@@ -88,6 +94,7 @@
   text-align: center;
   font-size: 25px;
   display: "flex";
+  font-family: 'Inter', sans-serif;
 }
 
 .row-right-top{
@@ -96,6 +103,7 @@
   text-align: center;
   font-size: 25px;
   display: "flex";
+  font-family: 'Inter', sans-serif;
 }
 
 .large-margin{
@@ -108,6 +116,7 @@
   align-items: center;
   text-align: center;
   justify-content: center;
+  font-family: 'Inter', sans-serif;
 }
 
 input[type=text], select {
@@ -118,9 +127,10 @@ input[type=text], select {
   border: 1px solid #ccc;
   border-radius: 8px;
   box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
 
-input[type=submit] {
+.derpy-button {
   width: 45%;
   background-color: rgb(166, 155, 75);
   color: black;
@@ -131,13 +141,14 @@ input[type=submit] {
   cursor: pointer;
   font-size: 15px;
   font-weight: bold;
+  font-family: 'Inter', sans-serif;
 }
 
-input[type=submit]:hover {
+.derpy-button:hover {
   background-color: rgb(125, 116, 51);
 }
 
-input[type=submit]:active {
+.derpy-button:active {
   background-color: rgb(125, 116, 51);
   box-shadow: 0 5px #666;
   transform: translateY(4px);
