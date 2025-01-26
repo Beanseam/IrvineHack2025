@@ -190,9 +190,7 @@ function App() {
         {
           map.setConfigProperty('basemap', 'showPlaceLabels', true);
           updateBounds(map, initialCenter, .1);
-          removeBlur("city");
-          alert("guess 1");
-          
+          removeBlur("city");          
           break;
         }
       case 2:
@@ -200,7 +198,6 @@ function App() {
           map.setConfigProperty('basemap', 'showRoadLabels', true);
           removeBlur("lot-size");
           updateBounds(map, initialCenter, .3);
-          alert("guess 2");
           break;
 
         }
@@ -210,7 +207,6 @@ function App() {
           removeBlur("bathrooms");
           removeBlur("bedrooms");
           updateBounds(map, initialCenter, .5);
-          alert("guess3");
           break;
         }
       case 4:
@@ -218,7 +214,6 @@ function App() {
           map.setConfigProperty('basemap', 'showTransitLabels', true);
           removeBlur("year-built");
           updateBounds(map, initialCenter, 1);
-          alert("guess4");
           break;
         }
 
@@ -226,19 +221,15 @@ function App() {
         {
           map.setConfigProperty('basemap', 'showPointOfInterestLabels', true);
           removeBlur("stories");
-          
-          alert("guess5");
           break;
         }
       case 6:
         {
-          alert("guess6");
           // free guess 1
           break;
         }
       case 7:
         {
-          alert("guess7");
           break;
           // free guess 2
         }
