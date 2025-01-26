@@ -69,10 +69,19 @@ function SideBar({ propData, compareGuess, iconState }) {
 function App() {
   //popup
   const [isPopupVisible, setPopupVisible] = useState(true);
+  const [isWin, setWin] = useState(false);
 
   const closePopup = () => {
     setPopupVisible(false);
   };
+  const noWin = () => {
+    setWin(false);
+  }
+
+  //call yesWin to display win popup
+  const yesWin = () => {
+    setWin(true);
+  }
 
   // Map related vars
   const apiKey = import.meta.env.VITE_MAP_KEY;
@@ -207,6 +216,17 @@ function App() {
             </pre>
           }
           onClose={closePopup}
+        />
+      )}
+      {isWin && (
+        <Popup
+          message={
+            <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+              <p>Congratulations! </p>
+              <p>You Win! Seems like you really know SoCal well!</p>
+            </pre>
+          }
+          onClose={noWin}
         />
       )}
     </>
