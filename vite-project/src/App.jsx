@@ -8,6 +8,7 @@ import './App.css'
 
 
 const INITIAL_ZOOM = 17
+var guesses = 0;
 
 function SideBar()
 {
@@ -124,11 +125,12 @@ function App() {
 
 function compareGuess(){
   var userGuess = document.getElementById("user-guess").innerHTML;
+  guesses++;
   var realValue = 100000;
-  if(userGuess < (realValue - 5000)){
+  if(userGuess < (realValue - 10000)){
 
   }
-  else if(userGuess > (realValue + 5000)){
+  else if(userGuess > (realValue + 10000)){
 
   }
   else{
