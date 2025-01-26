@@ -12,8 +12,38 @@ function SideBar()
 {
    return (
     <section>
-      
-      <p class = "sidebar sidebarPos" style={{border: '1px solid black'}}></p>
+      <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+      </head>
+      <p class = "sidebar sidebarPos" style={{border: '1px solid black'}}>
+        <div class="main-body">
+          <div class="side-column">
+            <div class="row-left">City:</div>
+            <div class="row-left">Lot Size:</div>
+            <div class="row-left">Bedrooms:</div>
+            <div class="row-left">Bathrooms:</div>
+            <div class="row-left">Year Built:</div>
+            <div class="row-left">Type:</div>
+          </div>
+          <div class="side-column">
+            <div class="row-right">Santa Ana</div>
+            <div class="row-right">Some Number</div>
+            <div class="row-right">3</div>
+            <div class="row-right">3</div>
+            <div class="row-right">1990</div>
+            <div class="row-right">Single-Family</div>
+          </div>
+        </div>
+        <div class="large-margin">
+          <div class="centered-row">
+            <input type="text" id="user-guess" placeholder="Enter Your Guess!"></input>
+            <i class='fas fa-angle-double-down' ></i>
+          </div>
+          <div class="centered-row">
+            <input type="submit" value="Guess"></input>
+          </div>
+        </div>
+      </p>
       
 
     </section>
@@ -92,6 +122,20 @@ function App() {
       <SideBar />
     </>
   )
+}
+
+function compareGuess(){
+  var userGuess = document.getElementById("user-guess").innerHTML;
+  var realValue = 100000;
+  if(userGuess < (realValue - 5000)){
+
+  }
+  else if(userGuess > (realValue + 5000)){
+
+  }
+  else{
+
+  }
 }
 
 export default App

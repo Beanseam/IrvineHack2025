@@ -25,7 +25,6 @@
   left: 75%;
 }
 
-
 .sidebar {
   background-color:lightgray;
   color: #fff;
@@ -40,9 +39,6 @@
   
 }
 
-
-
-
 .reset-button {
   position: absolute;
   top: 50px;
@@ -51,4 +47,77 @@
   padding: 4px 10px;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.main-body{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  color: black;
+  align-items: center;
+}
+
+.side-column{
+  width: 50%;
+  height: fill;
+  margin-left: 10px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.row-left{
+  margin-top: 20px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.row-right{
+  margin-top: 20px;
+  text-align: center;
+  font-size: 25px;
+}
+
+.large-margin{
+  margin-top: 60px;
+}
+
+.centered-row{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+input[type=text], select {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 45%;
+  background-color: rgb(166, 155, 75);
+  color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+input[type=submit]:hover {
+  background-color: rgb(125, 116, 51);
+}
+
+input[type=submit]:active {
+  background-color: rgb(125, 116, 51);
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
