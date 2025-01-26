@@ -169,26 +169,13 @@ function App() {
       case 1:
         {
           map.setConfigProperty('basemap', 'showPlaceLabels', true);
+          removeBlur("city");
           console.log("Added Labels!")
         }
       default:
         {
           console.log("Reset Game")
         }
-    }
-
-
-    if(numGuesses > 7)
-    {
-      numGuesses = 0;
-      //and restart the game
-    }
-      
-
-    if(numGuesses == 1)
-    {
-      map.setConfigProperty('basemap', 'showPlaceLabels', true);
-      console.log("Added Labels!")
     }
       
   };
@@ -201,6 +188,12 @@ function App() {
       )}
     </>
   );
+}
+
+function removeBlur(elementId)
+{
+  var element = document.getElementById(elementId);
+  element.removeAttribute("style");
 }
 
 export default App;
