@@ -74,6 +74,8 @@ function App() {
   const [initialCenter, setInitialCenter] = useState([0, 0]); // Default coordinates
   const [propertyData, setPropertyData] = useState(null); // State for property data
 
+  var numGuesses = 0;
+
   useEffect(() => {
     let didCancel = false;
 
@@ -148,16 +150,47 @@ function App() {
   }, [isDataLoaded, initialCenter]);
 
   const compareGuess = (propData) => {
+    const map = mapRef.current;
     const userGuess = document.getElementById("user-guess").value; // Get user input
     const realValue = propData.TotalAssessedValue;
 
     if (userGuess < realValue - 10000) {
       setIconState("FaAnglesUp"); // Set state to Down Icon
+      numGuesses++;
     } else if (userGuess > realValue + 10000) {
       setIconState("FaAnglesDown"); // Set state to Up Icon
+      numGuesses++;
     } else {
       setIconState("FaMinus"); // Set state to Accessible Icon
+      numGuesses++;
     }
+
+    switch(numGuesses){
+      case 1:
+        {
+          map.setConfigProperty('basemap', 'showPlaceLabels', true);
+          console.log("Added Labels!")
+        }
+      default:
+        {
+          console.log("Reset Game")
+        }
+    }
+
+
+    if(numGuesses > 7)
+    {
+      numGuesses = 0;
+      //and restart the game
+    }
+      
+
+    if(numGuesses == 1)
+    {
+      map.setConfigProperty('basemap', 'showPlaceLabels', true);
+      console.log("Added Labels!")
+    }
+      
   };
 
   return (
