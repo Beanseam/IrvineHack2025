@@ -242,8 +242,8 @@ function App() {
         }
       case 7:
         {
-          break;
           document.getElementById("input-button").textContent="Play Again!";
+          break;
           // free guess 2
         }
       default:
