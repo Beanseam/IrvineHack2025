@@ -11,29 +11,29 @@ const INITIAL_ZOOM = 17
 function SideBar(propData)
 {
   console.log(propData)
-  console.log(propData.propData.City)
+  console.log(propData.propData?.City)
    return (
     <section>
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
       </head>
-      <p class = "sidebar sidebarPos" style={{border: '1px solid black'}}>
+      <div class = "sidebar sidebarPos" style={{border: '1px solid black'}}>
         <div class="main-body">
           <div class="side-column">
-            <div class="row-left">City:</div>
+            <div class="row-left-top">City:</div>
             <div class="row-left">Lot Size:</div>
             <div class="row-left">Bedrooms:</div>
             <div class="row-left">Bathrooms:</div>
             <div class="row-left">Year Built:</div>
-            <div class="row-left">Type:</div>
+            <div class="row-left">Floors:</div>
           </div>
           <div class="side-column">
-            <div class="row-right">{propData.propData?.City || "N/A"}</div>
+            <div class="row-right-top">{propData.propData?.City || "N/A"}</div>
             <div class="row-right">{propData.propData?.LotSizeOrArea || "N/A"}</div>
             <div class="row-right">{propData.propData?.NumberOfBedrooms || "N/A"}</div>
             <div class="row-right">{propData.propData?.NumberOfBaths || "N/A"}</div>
             <div class="row-right">{propData.propData?.YearBuilt || "N/A"}</div>
-            <div class="row-right">{propData.propData?.CountyLandUseDescription || "N/A"}</div>
+            <div class="row-right">{propData.propData?.NumberOfStories || "N/A"}</div>
           </div>
         </div>
         <div class="large-margin">
@@ -45,7 +45,7 @@ function SideBar(propData)
             <input type="submit" value="Guess"></input>
           </div>
         </div>
-      </p>
+      </div>
       
 
     </section>
@@ -82,7 +82,7 @@ function App() {
             NumberOfBedrooms: data.NumberOfBedrooms,
             NumberOfBaths: data.NumberOfBaths,
             YearBuilt: data.YearBuilt,
-            CountyLandUseDescription: data.CountyLandUseDescription,
+            NumberOfStories: data.NumberOfStories,
           });
           setIsDataLoaded(true); // Mark data as loaded
            
