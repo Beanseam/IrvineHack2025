@@ -233,7 +233,6 @@ function App() {
           });
           removeBlur("stories");
           
-          alert("guess5");
           break;
         }
       case 6:
@@ -243,8 +242,8 @@ function App() {
         }
       case 7:
         {
-          alert("guess7");
           break;
+          document.getElementById("input-button").textContent="Play Again!";
           // free guess 2
         }
       default:
