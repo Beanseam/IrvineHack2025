@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -6,18 +6,25 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import './App.css'
 
 function App() {
-  console.log('Hello');
+  // Map related vars
   const apiKey = import.meta.env.VITE_MAP_KEY;
-  console.log(apiKey);
 
   const mapRef = useRef()
   const mapContainerRef = useRef()
-
+    
   useEffect(() => {
     mapboxgl.accessToken = apiKey
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
     });
+    fetch('http://localhost:8000/generate')
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setPhotos(data);
+      });
 
     return () => {
       mapRef.current.remove()

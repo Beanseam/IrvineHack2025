@@ -2,10 +2,21 @@ from fastapi import FastAPI, HTTPException
 from dotenv import dotenv_values
 from motor.motor_asyncio import AsyncIOMotorClient
 from models import Property
+from fastapi.middleware.cors import CORSMiddleware
 
 config = dotenv_values(".env")
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
 
 client = AsyncIOMotorClient(config["ATLAS_URI"])
 db = client.get_database("MelissaDatasets")
