@@ -8,8 +8,10 @@ import './App.css'
 
 const INITIAL_ZOOM = 17
 
-function SideBar()
+function SideBar(propData)
 {
+  console.log(propData)
+  console.log(propData.propData.City)
    return (
     <section>
       <head>
@@ -26,12 +28,12 @@ function SideBar()
             <div class="row-left">Type:</div>
           </div>
           <div class="side-column">
-            <div class="row-right">Santa Ana</div>
-            <div class="row-right">Some Number</div>
-            <div class="row-right">3</div>
-            <div class="row-right">3</div>
-            <div class="row-right">1990</div>
-            <div class="row-right">Single-Family</div>
+            <div class="row-right">{propData.propData?.City || "N/A"}</div>
+            <div class="row-right">{propData.propData?.LotSizeOrArea || "N/A"}</div>
+            <div class="row-right">{propData.propData?.NumberOfBedrooms || "N/A"}</div>
+            <div class="row-right">{propData.propData?.NumberOfBaths || "N/A"}</div>
+            <div class="row-right">{propData.propData?.YearBuilt || "N/A"}</div>
+            <div class="row-right">{propData.propData?.CountyLandUseDescription || "N/A"}</div>
           </div>
         </div>
         <div class="large-margin">
@@ -59,6 +61,7 @@ function App() {
   const mapRef = useRef(null);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [initialCenter, setInitialCenter] = useState([0, 0]); // Default coordinates
+  const [propertyData, setPropertyData] = useState(null); // State for property data
 
   var INITIAL_CENTER = [0, 0]
 
@@ -70,9 +73,19 @@ function App() {
         const res = await fetch("http://localhost:8000/generate");
         const data = await res.json();
         if (!didCancel) {
-          console.log(data.MAK, data.Latitude, data.Longitude);
+          console.log(data);
           setInitialCenter([data.Longitude, data.Latitude]);
+          // Assuming the API response includes property data
+          setPropertyData({
+            City: data.City,
+            LotSizeOrArea: data.LotSizeOrArea,
+            NumberOfBedrooms: data.NumberOfBedrooms,
+            NumberOfBaths: data.NumberOfBaths,
+            YearBuilt: data.YearBuilt,
+            CountyLandUseDescription: data.CountyLandUseDescription,
+          });
           setIsDataLoaded(true); // Mark data as loaded
+           
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -119,7 +132,7 @@ function App() {
   return (
     <>
       <div id='map-container' ref={mapContainerRef} style={{border: '1px solid black'}}/>
-      <SideBar />
+      <SideBar propData={propertyData} />
     </>
   )
 }
