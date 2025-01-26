@@ -187,6 +187,7 @@ function App() {
     else {
       setIconState("FaMinus"); // Set state to Accessible Icon
       yesWin()
+      restartGame()
     }
 
     switch (numGuesses) {
