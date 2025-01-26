@@ -5,6 +5,19 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 import './App.css'
 
+function SideBar()
+{
+   return (
+    <section>
+      
+      <p class = "sidebar sidebarPos" style={{border: '1px solid black'}}></p>
+      
+
+    </section>
+   );
+}
+
+
 function App() {
   console.log('Hello');
   const apiKey = import.meta.env.VITE_MAP_KEY;
@@ -26,7 +39,8 @@ function App() {
 
   return (
     <>
-      <div id='map-container' ref={mapContainerRef}/>
+      <div id='map-container' ref={mapContainerRef} style={{border: '1px solid black'}}/>
+      <SideBar />
     </>
   )
 }
