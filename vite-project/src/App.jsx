@@ -5,15 +5,17 @@ import { FaAnglesDown, FaAnglesUp, FaMinus } from "react-icons/fa6";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './App.css';
 
+import Popup from './Popup';
+
 const INITIAL_ZOOM = 17;
 var guesses = 0;
 
 function SwitchingIcons({ state }) {
   return (
     <div>
-      {state === 'FaMinus' && <FaMinus color='darkBlue' size={32}/>}
-      {state === 'FaAnglesDown' && <FaAnglesDown color='darkBlue' size={32}/>}
-      {state === 'FaAnglesUp' && <FaAnglesUp color='darkBlue' size={32}/>}
+      {state === 'FaMinus' && <FaMinus color='darkBlue' size={32} />}
+      {state === 'FaAnglesDown' && <FaAnglesDown color='darkBlue' size={32} />}
+      {state === 'FaAnglesUp' && <FaAnglesUp color='darkBlue' size={32} />}
     </div>
   );
 }
@@ -38,19 +40,19 @@ function SideBar({ propData, compareGuess, iconState }) {
             <div className="row-left">Floors:</div>
           </div>
           <div className="side-column">
-            <div className="row-right-top" style={{filter:"blur(8px)"}} id="city">{propData?.City || "N/A"}</div>
-            <div className="row-right" style={{filter:"blur(8px)"}} id="lot-size">{propData?.LotSizeOrArea || "N/A"}</div>
-            <div className="row-right" style={{filter:"blur(8px)"}} id="bedrooms">{propData?.NumberOfBedrooms || "N/A"}</div>
-            <div className="row-right" style={{filter:"blur(8px)"}} id="bathrooms">{propData?.NumberOfBaths || "N/A"}</div>
-            <div className="row-right" style={{filter:"blur(8px)"}} id="year-built">{propData?.YearBuilt || "N/A"}</div>
-            <div className="row-right" style={{filter:"blur(8px)"}} id="stories">{propData?.NumberOfStories || "N/A"}</div>
+            <div className="row-right-top" style={{ filter: "blur(8px)" }} id="city">{propData?.City || "N/A"}</div>
+            <div className="row-right" style={{ filter: "blur(8px)" }} id="lot-size">{propData?.LotSizeOrArea || "N/A"}</div>
+            <div className="row-right" style={{ filter: "blur(8px)" }} id="bedrooms">{propData?.NumberOfBedrooms || "N/A"}</div>
+            <div className="row-right" style={{ filter: "blur(8px)" }} id="bathrooms">{propData?.NumberOfBaths || "N/A"}</div>
+            <div className="row-right" style={{ filter: "blur(8px)" }} id="year-built">{propData?.YearBuilt || "N/A"}</div>
+            <div className="row-right" style={{ filter: "blur(8px)" }} id="stories">{propData?.NumberOfStories || "N/A"}</div>
           </div>
         </div>
         <div className="large-margin">
           <div className="centered-row">
             <input type="text" id="user-guess" placeholder="Enter Your Guess!" />
             <div class="added-padding">
-            <SwitchingIcons state={iconState}/> {/* Pass the icon state */}
+              <SwitchingIcons state={iconState} /> {/* Pass the icon state */}
             </div>
           </div>
           <div className="centered-row">
@@ -65,6 +67,13 @@ function SideBar({ propData, compareGuess, iconState }) {
 }
 
 function App() {
+  //popup
+  const [isPopupVisible, setPopupVisible] = useState(true);
+
+  const closePopup = () => {
+    setPopupVisible(false);
+  };
+
   // Map related vars
   const apiKey = import.meta.env.VITE_MAP_KEY;
   const [iconState, setIconState] = useState("FaMinus"); // Track icon state
@@ -165,7 +174,7 @@ function App() {
       numGuesses++;
     }
 
-    switch(numGuesses){
+    switch (numGuesses) {
       case 1:
         {
           map.setConfigProperty('basemap', 'showPlaceLabels', true);
@@ -177,7 +186,7 @@ function App() {
           console.log("Reset Game")
         }
     }
-      
+
   };
 
   return (
@@ -186,12 +195,25 @@ function App() {
       {propertyData && (
         <SideBar propData={propertyData} compareGuess={compareGuess} iconState={iconState} />
       )}
+      {isPopupVisible && (
+        <Popup
+          message={
+            <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+              <p>Welcome to Property Guessing Game!</p>
+
+              <p>As you guess, more information about the random home will be revealed.</p>
+              <p>How well do you know the SoCal real estate market?</p>
+              <p>Happy Guessing!</p>
+            </pre>
+          }
+          onClose={closePopup}
+        />
+      )}
     </>
   );
 }
 
-function removeBlur(elementId)
-{
+function removeBlur(elementId) {
   var element = document.getElementById(elementId);
   element.removeAttribute("style");
 }
