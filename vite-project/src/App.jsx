@@ -38,12 +38,12 @@ function SideBar({ propData, compareGuess, iconState }) {
             <div className="row-left">Floors:</div>
           </div>
           <div className="side-column">
-            <div className="row-right-top">{propData?.City || "N/A"}</div>
-            <div className="row-right">{propData?.LotSizeOrArea || "N/A"}</div>
-            <div className="row-right">{propData?.NumberOfBedrooms || "N/A"}</div>
-            <div className="row-right">{propData?.NumberOfBaths || "N/A"}</div>
-            <div className="row-right">{propData?.YearBuilt || "N/A"}</div>
-            <div className="row-right">{propData?.NumberOfStories || "N/A"}</div>
+            <div className="row-right-top" style={{filter:"blur(8px)"}} id="city">{propData?.City || "N/A"}</div>
+            <div className="row-right" style={{filter:"blur(8px)"}} id="lot-size">{propData?.LotSizeOrArea || "N/A"}</div>
+            <div className="row-right" style={{filter:"blur(8px)"}} id="bedrooms">{propData?.NumberOfBedrooms || "N/A"}</div>
+            <div className="row-right" style={{filter:"blur(8px)"}} id="bathrooms">{propData?.NumberOfBaths || "N/A"}</div>
+            <div className="row-right" style={{filter:"blur(8px)"}} id="year-built">{propData?.YearBuilt || "N/A"}</div>
+            <div className="row-right" style={{filter:"blur(8px)"}} id="stories">{propData?.NumberOfStories || "N/A"}</div>
           </div>
         </div>
         <div className="large-margin">
